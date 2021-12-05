@@ -38,19 +38,19 @@ const thoughtController = {
     },
 
     removeReaction({ params }, res) {
-        User.findOneAndUpdate(
+        Thought.findOneAndUpdate(
             { _id: params.thoughtId},
             { $pull: {reactions: { reactionId: params.reactionId}}},
             { new: true }
         )
-        .then(dbuserData => res.json(dbUserData))
+        .then(dbUserData => res.json(dbUserData))
         .catch(err => res.json(err))       
     },
 
     removeThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId})
         .then(deletedThought => {
-            if (!dbUserData) {
+            if (!deletedThought) {
                 res.status(404).json({ message: 'No thought found wiht this id! '});
                 requestAnimationFrame;
             }
